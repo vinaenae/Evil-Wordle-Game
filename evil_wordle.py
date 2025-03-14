@@ -142,19 +142,6 @@ class Keyboard:
         
 
 
-
-                        
-                    
-        
-
-
-        
-                
-
-
-
-
-
 class WordFamily:
     """
     A class representing a group or 'family' of words that match a specific
@@ -187,8 +174,10 @@ class WordFamily:
         self.feedback_colors = feedback_colors
         self.words = words
         self.difficulty = 0
-        
-        # TODO: implement the difficulty calculation here.
+        for _, color in enumerate(feedback_colors):
+            self.difficulty += self.COLOR_DIFFICULTY[color]
+
+
 
     # TODO: Modify this method. You may delete this comment when you are done.
     def __lt__(self, other):
@@ -203,7 +192,20 @@ class WordFamily:
             raises NotImplementedError with the message: "< operator only valid
             for WordFamily comparisons." if `other` is not a WordFamily instance.
         """
+        if not isinstance(other, WordFamily):
+            raise NotImplementedError("< operator only valid")
+        
+        if len(self.words) < len(other.words):
+            return True
+        elif len(self.words) == len(other.words):
+            if self.difficulty < other.difficulty:
+                return True
+            elif self.difficulty == other.difficulty:
+                if self.feedback_colors < other.feedback_colors:
+                    return True
+            return False
         return False
+                
 
     # DO NOT change this method.
     # You should use this for debugging!
