@@ -86,6 +86,15 @@ class Keyboard:
 
         post: None
         """
+        for i, character in enumerate(guessed_word):
+            if feedback_colors[i] == CORRECT_COLOR:
+                self.colors[character] = feedback_colors[i]
+            elif feedback_colors[i] == WRONG_SPOT_COLOR:
+                if self.colors[character] != CORRECT_COLOR:
+                    self.colors[character] = feedback_colors[i]
+            else:
+                pass
+
         
 
 
@@ -111,7 +120,39 @@ class Keyboard:
         post: Returns a formatted string with each letter colored according to feedback
               and arranged to match a typical keyboard layout.
         """
-        return ""
+        combine_rows = [[], [], []]
+        first_row = ""
+        second_row = ""
+        third_row = ""
+            
+        for i, letter in enumerate(self.rows):
+            for char in letter:
+                if i == 1:
+                    combine_rows[i].append(color_word(self.colors[char], char))
+                elif i == 2:
+                    combine_rows[i].append(color_word(self.colors[char], char))
+                else:
+                    combine_rows[i].append(color_word(self.colors[char], char))
+
+        first_row = " ".join(combine_rows[0])
+        second_row = f" {" ".join(combine_rows[1])}"
+        third_row = f"   {" ".join(combine_rows[2])}"
+
+        return f"{first_row}\n{second_row}\n{third_row}"
+        
+
+
+
+                        
+                    
+        
+
+
+        
+                
+
+
+
 
 
 class WordFamily:
@@ -146,6 +187,7 @@ class WordFamily:
         self.feedback_colors = feedback_colors
         self.words = words
         self.difficulty = 0
+        
         # TODO: implement the difficulty calculation here.
 
     # TODO: Modify this method. You may delete this comment when you are done.
