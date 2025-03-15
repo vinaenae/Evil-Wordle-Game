@@ -67,7 +67,6 @@ class Keyboard:
         self.rows = ("qwertyuiop", "asdfghjkl", "zxcvbnm")
         self.colors = {letter: NO_COLOR for letter in "qwertyuiopasdfghjklzxcvbnm"}
 
-    # TODO: Modify this method. You may delete this comment when you are done.
     def update(self, feedback_colors, guessed_word):
         """
         Updates the color of each letter on the keyboard based on feedback from a guessed word.
@@ -98,11 +97,10 @@ class Keyboard:
                 else:
                     continue
             elif self.colors[character] == NO_COLOR:
-                    self.colors[character] = feedback_colors[i]
+                self.colors[character] = feedback_colors[i]
 
 
 
-    # TODO: Modify this method. You may delete this comment when you are done.
     def __str__(self):
         """
         Returns a string representation of the keyboard, showing each letter in its
@@ -139,7 +137,6 @@ class Keyboard:
         third_row = f"   {' '.join(combine_rows[2])}"
 
         return f"{first_row}\n{second_row}\n{third_row}"
-        
 
 
 class WordFamily:
@@ -159,7 +156,6 @@ class WordFamily:
 
     COLOR_DIFFICULTY = {CORRECT_COLOR: 0, WRONG_SPOT_COLOR: 1, NOT_IN_WORD_COLOR: 2}
 
-    # TODO: Modify this method. You may delete this comment when you are done.
     def __init__(self, feedback_colors, words):
         """
         Initializes the WordFamily based on the feedback colors list. The
@@ -179,7 +175,6 @@ class WordFamily:
 
 
 
-    # TODO: Modify this method. You may delete this comment when you are done.
     def __lt__(self, other):
         """
         Compares this WordFamily object with another by prioritizing a larger
@@ -194,7 +189,6 @@ class WordFamily:
         """
         if not isinstance(other, WordFamily):
             raise NotImplementedError("< operator only valid")
-        
         if len(self.words) > len(other.words):
             return True
         elif len(self.words) == len(other.words):
@@ -205,7 +199,6 @@ class WordFamily:
                     return True
             return False
         return False
-                
 
     # DO NOT change this method.
     # You should use this for debugging!
@@ -335,7 +328,6 @@ def prepare_game():
     return attempts, valid_words
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def fast_sort(lst):
     """
     Returns a new list with the same elements as lst sorted in ascending order. You MUST implement
@@ -381,12 +373,11 @@ def fast_sort(lst):
         j += 1
         k += 1
 
-    return sorted_list 
+    return sorted_list
 
 
 
 
-# TODO: Modify this helper function. You may delete this comment when you are done.
 def get_feedback_colors(secret_word, guessed_word):
     """
     Processes the guess and generates the colored feedback based on the potential secret word. This
@@ -421,7 +412,6 @@ def get_feedback_colors(secret_word, guessed_word):
     return colors
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def get_feedback(remaining_secret_words, guessed_word):
     """
     Processes the guess and generates the colored feedback based on the hardest word family. Use
@@ -441,10 +431,6 @@ def get_feedback(remaining_secret_words, guessed_word):
             2. Difficulty of the feedback
             3. Lexicographical ordering of the feedback (ASCII value comparisons)
     """
-    # Modify this! This is just starter code.
-    #feedback_colors = get_feedback_colors(remaining_secret_words[0], guessed_word)
-
-    #return feedback_colors, remaining_secret_words
     family_list = {}
     word_list = []
 
@@ -458,22 +444,12 @@ def get_feedback(remaining_secret_words, guessed_word):
         else:
             word_list = [word]
             family_list[store_pair] = word_list
-    
     all_families = []
     for colors in family_list:
         all_families.append(WordFamily(colors, family_list.get(colors)))
 
     sorted_families = fast_sort(all_families)
-    
     return (sorted_families[0].feedback_colors, sorted_families[0].words)
-
-
-    
-        
-
-
-    
-
 
 
 
