@@ -13,6 +13,7 @@ code to someone else), the case shall be submitted to the Office of the Dean of
 Students. Academic penalties up to and including an F in the course are likely.
 
 UT EID 1: vd6965
+
 """
 
 import random
@@ -188,16 +189,18 @@ class WordFamily:
         """
         if not isinstance(other, WordFamily):
             raise NotImplementedError("< operator only valid")
+        
+        flag = False
         if len(self.words) > len(other.words):
-            return True
+            flag =  True
         elif len(self.words) == len(other.words):
             if self.difficulty > other.difficulty:
-                return True
+                flag = True
             elif self.difficulty == other.difficulty:
                 if self.feedback_colors < other.feedback_colors:
-                    return True
-            return False
-        return False
+                    flag = True
+            return flag
+        return flag
 
     # DO NOT change this method.
     # You should use this for debugging!
