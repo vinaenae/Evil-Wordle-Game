@@ -445,17 +445,30 @@ def get_feedback(remaining_secret_words, guessed_word):
     #feedback_colors = get_feedback_colors(remaining_secret_words[0], guessed_word)
 
     #return feedback_colors, remaining_secret_words
-    color_list = {}
+    family_list = {}
     word_list = []
 
-    for _,  word in enumerate(remaining_secret_words):
-         pattern_colors = list(get_feedback_colors(word, guessed_word))
-         if pattern_colors not in color_list:
-             word_list = [word]
-             color_list[pattern_colors] = [word]
-         else:
-             word_list.append(word)
-             color_list[pattern_colors] = word_list
+
+    for word in remaining_secret_words:
+        store_pair = tuple(get_feedback_colors(word, guessed_word))
+        if store_pair in family_list:
+            word_list = family_list.get(store_pair)
+            word_list.append(word)
+            family_list[store_pair] = word_list
+        else:
+            word_list = [word]
+            family_list[store_pair] = word_list
+    
+    all_families = []
+    for colors in family_list:
+        all_families.append(WordFamily(colors, family_list.get(colors)))
+
+    sorted_families = fast_sort(all_families)
+    
+    return (sorted_families[0].feedback_colors, sorted_families[0].words)
+
+
+    
         
 
 
