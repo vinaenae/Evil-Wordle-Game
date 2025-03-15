@@ -89,8 +89,7 @@ class Keyboard:
             if feedback_colors[i] == CORRECT_COLOR:
                 if self.colors[character] == CORRECT_COLOR:
                     continue
-                else:
-                    self.colors[character] = feedback_colors[i]
+                self.colors[character] = feedback_colors[i]
             elif feedback_colors[i] == WRONG_SPOT_COLOR:
                 if self.colors[character] != CORRECT_COLOR:
                     self.colors[character] = feedback_colors[i]
@@ -189,7 +188,6 @@ class WordFamily:
         """
         if not isinstance(other, WordFamily):
             raise NotImplementedError("< operator only valid")
-        
         flag = False
         if len(self.words) > len(other.words):
             flag =  True
